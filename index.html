@@ -509,6 +509,90 @@
             display: flex;
         }
 
+        .sec-description {
+            font-size: 13px;
+            color: var(--secondary);
+            margin-top: -8px;
+            margin-bottom: 15px;
+            font-family: 'Lora', serif;
+            font-style: italic;
+            opacity: 0.8;
+            position: relative;
+        }
+
+        .editing .sec-description {
+            outline: 1px dashed var(--accent-light);
+            min-height: 1.5em;
+            display: block;
+            padding-right: 30px;
+        }
+
+        .sec-description .edit-controls {
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: none;
+        }
+
+        .editing .sec-description:hover .edit-controls {
+            display: block;
+        }
+
+        /* Adjustment for Rich Text / Description */
+        .full-width-text {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .rich-text-content {
+            font-family: 'Lora', serif;
+            font-size: 14.5px;
+            line-height: 1.7;
+            padding: 10px 0;
+            color: var(--primary);
+            min-height: 80px;
+        }
+
+        .rich-text-content ul, .rich-text-content ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .rich-text-toolbar {
+            display: none;
+            background: #fff;
+            border: 1px solid var(--accent-light);
+            border-radius: 4px;
+            padding: 5px;
+            position: absolute;
+            top: -40px;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            gap: 5px;
+        }
+
+        .editing .rich-text-content:focus + .rich-text-toolbar,
+        .rich-text-toolbar:hover {
+            display: flex;
+        }
+
+        .toolbar-btn {
+            padding: 4px 8px;
+            border: 1px solid #ddd;
+            background: #f9f9f9;
+            border-radius: 3px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .toolbar-btn:hover {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
         /* Detail List */
         .detail-grid {
             display: grid;
@@ -908,6 +992,42 @@
                                 </div>
                             </div>
 
+                            <!-- Career Objective (New Type) -->
+                            <section class="section">
+                                <div class="section-nav">
+                                    <button class="nav-btn" onclick="moveElement(this, 'up')">▲</button>
+                                    <button class="nav-btn" onclick="moveElement(this, 'down')">▼</button>
+                                    <button class="nav-btn del" onclick="removeSection(this)">✕</button>
+                                </div>
+                                <div class="layout-switcher">
+                                    <span class="layout-opt" onclick="setLayout(this, 'grid')">Grid</span>
+                                    <span class="layout-opt" onclick="setLayout(this, 'simple')">List</span>
+                                    <span class="layout-opt active" onclick="setLayout(this, 'text')">Text</span>
+                                </div>
+                                <h2 class="sec-title">
+                                    <span data-editable="title_objective">Career Objective</span>
+                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
+                                </h2>
+                                <div class="sec-description" data-editable="desc_objective">
+                                    Enter a short introduction or subtitle for this section here (optional)
+                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
+                                </div>
+                                <div class="full-width-text current-layout">
+                                    <div class="block">
+                                        <div class="rich-text-content" data-editable="objective_content">
+                                            To work in a challenging and dynamic environment where I can utilize my <b>analytical skills</b> and <b>design expertise</b>.
+                                        </div>
+                                        <div class="rich-text-toolbar">
+                                            <button class="toolbar-btn" onclick="execCommand('bold')">B</button>
+                                            <button class="toolbar-btn" onclick="execCommand('italic')">I</button>
+                                            <button class="toolbar-btn" onclick="execCommand('insertUnorderedList')">• List</button>
+                                        </div>
+                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                                    </div>
+                                </div>
+                                <button class="btn-add-section" onclick="addItemFromBtn(this)">+ Add Text Block</button>
+                            </section>
+
                             <!-- Initial Static Sections which become reorderable in the container -->
                             <section class="section">
                                 <div class="section-nav">
@@ -924,6 +1044,10 @@
                                     <span data-editable="title_personal">Personal Information</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
+                                <div class="sec-description" data-editable="desc_personal">
+                                    Key personal details and basic identity information
+                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
+                                </div>
                                 <div class="simple-list current-layout" id="personal-data">
                                     <div class="block">
                                         <div class="item">
@@ -986,6 +1110,10 @@
                                     <span data-editable="title_address">Address Details</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
+                                <div class="sec-description" data-editable="desc_address">
+                                    Current and permanent residential information
+                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
+                                </div>
                                 <div class="detail-grid current-layout" id="address-data">
                                     <div class="block">
                                         <div class="item">
@@ -1020,6 +1148,10 @@
                                     <span data-editable="title_education">Educational Qualification</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
+                                <div class="sec-description" data-editable="desc_education">
+                                    Academic background and degrees earned
+                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
+                                </div>
                                 <div class="academic-layout current-layout" id="education-list">
                                     <div class="block">
                                         <div class="block-tag" data-editable="edu_1_tag">BBS</div>
@@ -1064,6 +1196,10 @@
                                     <span data-editable="title_work">Work Experience</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
+                                <div class="sec-description" data-editable="desc_work">
+                                    Professional background and previous roles
+                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
+                                </div>
                                 <div class="academic-layout current-layout" id="work-list">
                                     <div class="block">
                                         <div class="block-tag" data-editable="work_1_tag">2Yrs</div>
@@ -1092,6 +1228,7 @@
                                     <span data-editable="title_family">Family Information</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
+                                <div class="sec-description" data-editable="desc_family">Details about your family background</div>
                                 <div class="detail-grid current-layout" id="family-data">
                                     <div class="block">
                                         <div class="item">
@@ -1126,6 +1263,7 @@
                                     <span data-editable="title_interests">Interests & Skills</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
+                                <div class="sec-description" data-editable="desc_interests">Core competencies, hobbies, and other interests</div>
                                 <div class="detail-grid current-layout" id="interests-data">
                                     <div class="block">
                                         <div class="item">
@@ -1218,7 +1356,13 @@
                 container.className = 'simple-list current-layout';
             } else if (layout === 'academic') {
                 container.className = 'academic-layout current-layout';
+            } else if (layout === 'text') {
+                container.className = 'full-width-text current-layout';
             }
+        }
+
+        function execCommand(command) {
+            document.execCommand(command, false, null);
         }
 
         function addContactItem() {
@@ -1257,6 +1401,7 @@
             const section = btn.closest('.section');
             const container = section.querySelector('.current-layout');
             const isAcademic = container.classList.contains('academic-layout');
+            const isText = container.classList.contains('full-width-text');
             
             const newBlock = document.createElement('div');
             newBlock.className = 'block';
@@ -1268,6 +1413,16 @@
                     <div class="block-info">
                         <div class="block-title" data-editable="title_${timestamp}" contenteditable="true">Program Name</div>
                         <div class="block-sub" data-editable="sub_${timestamp}" contenteditable="true">Institution Name</div>
+                    </div>
+                    <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                `;
+            } else if (isText) {
+                newBlock.innerHTML = `
+                    <div class="rich-text-content" data-editable="text_${timestamp}" contenteditable="true">Write your detailed description here.</div>
+                    <div class="rich-text-toolbar">
+                        <button class="toolbar-btn" onclick="execCommand('bold')">B</button>
+                        <button class="toolbar-btn" onclick="execCommand('italic')">I</button>
+                        <button class="toolbar-btn" onclick="execCommand('insertUnorderedList')">• List</button>
                     </div>
                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                 `;
@@ -1298,11 +1453,13 @@
                     <span class="layout-opt active" onclick="setLayout(this, 'grid')">Grid</span>
                     <span class="layout-opt" onclick="setLayout(this, 'simple')">List</span>
                     <span class="layout-opt" onclick="setLayout(this, 'academic')">Academic</span>
+                    <span class="layout-opt" onclick="setLayout(this, 'text')">Text</span>
                 </div>
                 <h2 class="sec-title">
                     <span data-editable="title_${timestamp}" contenteditable="true">New Section Title</span>
                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                 </h2>
+                <div class="sec-description" data-editable="desc_${timestamp}" contenteditable="true">Write a brief description for this section here (optional)</div>
                 <div class="detail-grid current-layout">
                     <div class="block">
                         <div class="item">
