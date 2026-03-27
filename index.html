@@ -981,7 +981,7 @@
             const timestamp = Date.now();
             newBlock.innerHTML = `
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                <span data-editable="contact_${timestamp}" contenteditable="true">Contact Detail</span>
+                <span data-editable="contact_${timestamp}" contenteditable="true"></span>
                 <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
             `;
             list.appendChild(newBlock);
@@ -1017,18 +1017,18 @@
 
             if (isAcademic) {
                 newBlock.innerHTML = `
-                    <div class="block-tag" data-editable="tag_${timestamp}" contenteditable="true">DEGREE</div>
+                    <div class="block-tag" data-editable="tag_${timestamp}" contenteditable="true"></div>
                     <div class="block-info">
-                        <div class="block-title" data-editable="title_${timestamp}" contenteditable="true">Program Name</div>
-                        <div class="block-sub" data-editable="sub_${timestamp}" contenteditable="true">Institution Name</div>
+                        <div class="block-title" data-editable="title_${timestamp}" contenteditable="true"></div>
+                        <div class="block-sub" data-editable="sub_${timestamp}" contenteditable="true"></div>
                     </div>
                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                 `;
             } else {
                  newBlock.innerHTML = `
                     <div class="item">
-                        <span class="item-label" data-editable="lbl_${timestamp}" contenteditable="true">Title/Label</span>
-                        <span class="item-val" data-editable="val_${timestamp}" contenteditable="true">Value/Detail</span>
+                        <span class="item-label" data-editable="lbl_${timestamp}" contenteditable="true"></span>
+                        <span class="item-val" data-editable="val_${timestamp}" contenteditable="true"></span>
                     </div>
                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                 `;
@@ -1052,12 +1052,12 @@
                     <span class="layout-opt" onclick="setLayout(this, 'simple')">List</span>
                     <span class="layout-opt" onclick="setLayout(this, 'academic')">Academic</span>
                 </div>
-                <h2 class="sec-title" data-editable="title_${timestamp}" contenteditable="true">New Section Title</h2>
+                <h2 class="sec-title" data-editable="title_${timestamp}" contenteditable="true"></h2>
                 <div class="detail-grid current-layout">
                     <div class="block">
                         <div class="item">
-                            <span class="item-label" data-editable="lbl_${timestamp}" contenteditable="true">Label</span>
-                            <span class="item-val" data-editable="val_${timestamp}" contenteditable="true">Value</span>
+                            <span class="item-label" data-editable="lbl_${timestamp}" contenteditable="true"></span>
+                            <span class="item-val" data-editable="val_${timestamp}" contenteditable="true"></span>
                         </div>
                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                     </div>
