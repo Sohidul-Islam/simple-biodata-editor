@@ -275,10 +275,8 @@
         .edit-controls {
             display: none;
             position: absolute;
-            right: -30px;
-            top: 10px;
-            flex-direction: column;
-            gap: 5px;
+            right: -10px;
+            top: -10px;
             z-index: 100;
         }
 
@@ -556,6 +554,15 @@
         .block {
             display: flex;
             gap: 20px;
+            position: relative;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .editing .block:hover {
+            background-color: rgba(176, 141, 87, 0.03);
+            outline: 1px dashed var(--accent);
         }
 
         .block-tag {
