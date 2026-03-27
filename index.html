@@ -1228,7 +1228,10 @@
                                     <span data-editable="title_family">Family Information</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
-                                <div class="sec-description" data-editable="desc_family">Details about your family background</div>
+                                <div class="sec-description" data-editable="desc_family">
+                                    Details about your family background
+                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
+                                </div>
                                 <div class="detail-grid current-layout" id="family-data">
                                     <div class="block">
                                         <div class="item">
@@ -1263,7 +1266,10 @@
                                     <span data-editable="title_interests">Interests & Skills</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
-                                <div class="sec-description" data-editable="desc_interests">Core competencies, hobbies, and other interests</div>
+                                <div class="sec-description" data-editable="desc_interests">
+                                    Core competencies, hobbies, and other interests
+                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
+                                </div>
                                 <div class="detail-grid current-layout" id="interests-data">
                                     <div class="block">
                                         <div class="item">
