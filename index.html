@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Bio Data - MD Mubtashim Fuad Fahim</title>
+    <title>Wedding Biodata - MD Mubtashim Fuad Fahim</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -12,10 +12,11 @@
         rel="stylesheet">
     <style>
         :root {
-            --primary: #4a0e0e; /* Deep Maroon */
-            --secondary: #6b7280;
-            --accent: #8b1a1a;   /* Rich Wedding Red */
-            --accent-light: rgba(139, 26, 26, 0.08);
+            --primary: #121212;
+            --secondary: #4a4a4a;
+            --accent: #b08d57;
+            /* Rich Bronze/Gold */
+            --accent-light: #f4efe6;
             --bg-color: #ffffff;
             --border: #e8e8e8;
             --print-width: 210mm;
@@ -970,6 +971,7 @@
                             <!-- Header (Not reorderable by default) -->
                             <div class="header">
                                 <div class="header-content">
+                                    <span class="bio-label">Wedding Biodata</span>
                                     <h1 class="main-title" data-editable="name">MD Mubtashim<br>Fuad Fahim</h1>
                                     <div class="contact-list" id="header-contact-list">
                                         <div class="contact-unit block">
@@ -1003,7 +1005,7 @@
                                 </div>
                             </div>
 
-                            <!-- Career Objective (New Type) -->
+                            <!-- About the Groom -->
                             <section class="section">
                                 <div class="section-nav">
                                     <button class="nav-btn" onclick="moveElement(this, 'up')">▲</button>
@@ -1016,17 +1018,13 @@
                                     <span class="layout-opt active" onclick="setLayout(this, 'text')">Text</span>
                                 </div>
                                 <h2 class="sec-title">
-                                    <span data-editable="title_objective">Career Objective</span>
+                                    <span data-editable="title_objective">About the Groom</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
-                                <div class="sec-description" data-editable="desc_objective">
-                                    Enter a short introduction or subtitle for this section here (optional)
-                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
-                                </div>
                                 <div class="full-width-text current-layout">
                                     <div class="block">
                                         <div class="rich-text-content" data-editable="objective_content">
-                                            To work in a challenging and dynamic environment where I can utilize my <b>analytical skills</b> and <b>design expertise</b>.
+                                            I am a sincere, God-fearing, and family-oriented young man from Chittagong. I am seeking a life partner who shares similar values, is kind-hearted, and is committed to building a peaceful and happy home together. My family is supportive of this proposal and looks forward to welcoming a new member with open arms.
                                         </div>
                                         <div class="rich-text-toolbar">
                                             <button class="toolbar-btn" onclick="execCommand('bold')">B</button>
@@ -1050,15 +1048,12 @@
                                     <span class="layout-opt" onclick="setLayout(this, 'grid')">Grid</span>
                                     <span class="layout-opt active" onclick="setLayout(this, 'simple')">List</span>
                                     <span class="layout-opt" onclick="setLayout(this, 'academic')">Academic</span>
-                                               <h2 class="sec-title">
-                                    <span data-editable="title_personal">Personal Details</span>
+                                </div>
+                                <h2 class="sec-title">
+                                    <span data-editable="title_personal">Personal Information</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
-                                <div class="sec-description" data-editable="desc_personal">
-                                    Basic identity and physical appearance information
-                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
-                                </div>
-                                <div class="simple-list current-layout" id="personal-data">
+                                <div class="detail-grid current-layout" id="personal-data">
                                     <div class="block">
                                         <div class="item">
                                             <span class="item-label" data-editable="label_full_name">Full Name</span>
@@ -1075,22 +1070,22 @@
                                     </div>
                                     <div class="block">
                                         <div class="item">
-                                            <span class="item-label" data-editable="label_height">Height</span>
-                                            <span class="item-val" data-editable="val_height">5 feet 8 inches</span>
+                                            <span class="item-label" data-editable="label_birth_place">Place of Birth</span>
+                                            <span class="item-val" data-editable="birth_place">Chittagong, Bangladesh</span>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
                                     <div class="block">
                                         <div class="item">
-                                            <span class="item-label" data-editable="label_weight">Weight</span>
-                                            <span class="item-val" data-editable="val_weight">65 KG</span>
+                                            <span class="item-label" data-editable="label_marital">Marital Status</span>
+                                            <span class="item-val" data-editable="marital">Unmarried</span>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
                                     <div class="block">
                                         <div class="item">
-                                            <span class="item-label" data-editable="label_complexion">Complexion</span>
-                                            <span class="item-val" data-editable="val_complexion">Fair</span>
+                                            <span class="item-label" data-editable="label_religion">Religion</span>
+                                            <span class="item-val" data-editable="religion">Islam (Sunni)</span>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
@@ -1103,18 +1098,23 @@
                                     </div>
                                     <div class="block">
                                         <div class="item">
-                                            <span class="item-label" data-editable="label_religion">Religion & Caste</span>
-                                            <span class="item-val" data-editable="religion">Islam (Sunni)</span>
+                                            <span class="item-label" data-editable="label_nationality">Nationality</span>
+                                            <span class="item-val" data-editable="nationality">Bangladeshi</span>
+                                        </div>
+                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                                    </div>
+                                    <div class="block">
+                                        <div class="item">
+                                            <span class="item-label" data-editable="label_nid">National ID No.</span>
+                                            <span class="item-val" data-editable="nid">1234567890123</span>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
                                 </div>
-暴
-
-                                </div>
                                 <button class="btn-add-section" onclick="addItemFromBtn(this)">+ Add Item</button>
                             </section>
 
+                            <!-- Physical Attributes -->
                             <section class="section">
                                 <div class="section-nav">
                                     <button class="nav-btn" onclick="moveElement(this, 'up')">▲</button>
@@ -1127,32 +1127,43 @@
                                     <span class="layout-opt" onclick="setLayout(this, 'academic')">Academic</span>
                                 </div>
                                 <h2 class="sec-title">
-                                    <span data-editable="title_address">Address Details</span>
+                                    <span data-editable="title_physical">Physical Attributes</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
-                                <div class="sec-description" data-editable="desc_address">
-                                    Current and permanent residential information
-                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
-                                </div>
-                                <div class="detail-grid current-layout" id="address-data">
+                                <div class="detail-grid current-layout" id="physical-data">
                                     <div class="block">
                                         <div class="item">
-                                            <span class="item-label" data-editable="label_present_address">Present Address</span>
-                                            <span class="item-val" data-editable="present_address">House 24, Road 12, Block B, Halishahar, Chittagong</span>
+                                            <span class="item-label" data-editable="label_height">Height</span>
+                                            <span class="item-val" data-editable="height">5 feet 8 inches</span>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
                                     <div class="block">
                                         <div class="item">
-                                            <span class="item-label" data-editable="label_permanent_address">Permanent Address</span>
-                                            <span class="item-val" data-editable="permanent_address">Village: Alipur, P.O: Chandina, Dist: Comilla</span>
+                                            <span class="item-label" data-editable="label_weight">Weight</span>
+                                            <span class="item-val" data-editable="weight">68 kg (approx.)</span>
+                                        </div>
+                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                                    </div>
+                                    <div class="block">
+                                        <div class="item">
+                                            <span class="item-label" data-editable="label_complexion">Complexion</span>
+                                            <span class="item-val" data-editable="complexion">Fair (Shyamla)</span>
+                                        </div>
+                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                                    </div>
+                                    <div class="block">
+                                        <div class="item">
+                                            <span class="item-label" data-editable="label_built">Body Type</span>
+                                            <span class="item-val" data-editable="built">Slim &amp; Athletic</span>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
                                 </div>
-                                <button class="btn-add-section" onclick="addItemFromBtn(this)">+ Add Address</button>
+                                <button class="btn-add-section" onclick="addItemFromBtn(this)">+ Add Attribute</button>
                             </section>
 
+                            <!-- Educational Qualification -->
                             <section class="section">
                                 <div class="section-nav">
                                     <button class="nav-btn" onclick="moveElement(this, 'up')">▲</button>
@@ -1168,16 +1179,12 @@
                                     <span data-editable="title_education">Educational Qualification</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
-                                <div class="sec-description" data-editable="desc_education">
-                                    Academic background and degrees earned
-                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
-                                </div>
                                 <div class="academic-layout current-layout" id="education-list">
                                     <div class="block">
                                         <div class="block-tag" data-editable="edu_1_tag">BBS</div>
                                         <div class="block-info">
                                             <div class="block-title" data-editable="edu_1_title">Bachelor of Business Studies (Hons)</div>
-                                            <div class="block-sub" data-editable="edu_1_sub">Government Commerce College, Chittagong (Ongoing)</div>
+                                            <div class="block-sub" data-editable="edu_1_sub">Government Commerce College, Chittagong — CGPA 3.20 (2022)</div>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
@@ -1185,7 +1192,7 @@
                                         <div class="block-tag" data-editable="edu_2_tag">HSC</div>
                                         <div class="block-info">
                                             <div class="block-title" data-editable="edu_2_title">Higher Secondary Certificate</div>
-                                            <div class="block-sub" data-editable="edu_2_sub">Govt. City College, Chittagong (2018)</div>
+                                            <div class="block-sub" data-editable="edu_2_sub">Govt. City College, Chittagong — GPA 4.50 (2018)</div>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
@@ -1193,7 +1200,7 @@
                                         <div class="block-tag" data-editable="edu_3_tag">SSC</div>
                                         <div class="block-info">
                                             <div class="block-title" data-editable="edu_3_title">Secondary School Certificate</div>
-                                            <div class="block-sub" data-editable="edu_3_sub">Nasirabad Govt. High School, Chittagong (2016)</div>
+                                            <div class="block-sub" data-editable="edu_3_sub">Nasirabad Govt. High School, Chittagong — GPA 4.83 (2016)</div>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
@@ -1201,6 +1208,7 @@
                                 <button class="btn-add-section" onclick="addItemFromBtn(this)">+ Add Qualification</button>
                             </section>
 
+                            <!-- Occupation & Financial Status -->
                             <section class="section">
                                 <div class="section-nav">
                                     <button class="nav-btn" onclick="moveElement(this, 'up')">▲</button>
@@ -1208,29 +1216,45 @@
                                     <button class="nav-btn del" onclick="removeSection(this)">✕</button>
                                 </div>
                                 <div class="layout-switcher">
-                                    <span class="layout-opt" onclick="setLayout(this, 'grid')">Grid</span>
+                                    <span class="layout-opt active" onclick="setLayout(this, 'grid')">Grid</span>
                                     <span class="layout-opt" onclick="setLayout(this, 'simple')">List</span>
-                                    <span class="layout-opt active" onclick="setLayout(this, 'academic')">Academic</span>
+                                    <span class="layout-opt" onclick="setLayout(this, 'academic')">Academic</span>
                                 </div>
                                 <h2 class="sec-title">
-                                    <span data-editable="title_work">Work Experience</span>
+                                    <span data-editable="title_work">Occupation &amp; Financial Status</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
-                                <div class="sec-description" data-editable="desc_work">
-                                    Professional background and previous roles
-                                    <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
-                                </div>
-                                <div class="academic-layout current-layout" id="work-list">
+                                <div class="detail-grid current-layout" id="work-list">
                                     <div class="block">
-                                        <div class="block-tag" data-editable="work_1_tag">2Yrs</div>
-                                        <div class="block-info">
-                                            <div class="block-title" data-editable="work_1_title">Junior Graphic Designer</div>
-                                            <div class="block-sub" data-editable="work_1_sub">Creative Agency Ltd. (2022 - Present)</div>
+                                        <div class="item">
+                                            <span class="item-label" data-editable="work_label_1">Occupation</span>
+                                            <span class="item-val" data-editable="work_val_1">Graphic Designer</span>
+                                        </div>
+                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                                    </div>
+                                    <div class="block">
+                                        <div class="item">
+                                            <span class="item-label" data-editable="work_label_2">Employer</span>
+                                            <span class="item-val" data-editable="work_val_2">FashionGlory Design Studio</span>
+                                        </div>
+                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                                    </div>
+                                    <div class="block">
+                                        <div class="item">
+                                            <span class="item-label" data-editable="work_label_3">Monthly Income</span>
+                                            <span class="item-val" data-editable="work_val_3">BDT 35,000 – 40,000</span>
+                                        </div>
+                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                                    </div>
+                                    <div class="block">
+                                        <div class="item">
+                                            <span class="item-label" data-editable="work_label_4">Property</span>
+                                            <span class="item-val" data-editable="work_val_4">Family-owned land &amp; residential house</span>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
                                 </div>
-                                <button class="btn-add-section" onclick="addItemFromBtn(this)">+ Add Experience</button>
+                                <button class="btn-add-section" onclick="addItemFromBtn(this)">+ Add Detail</button>
                             </section>
 
                             <section class="section">
@@ -1242,39 +1266,30 @@
                                 <div class="layout-switcher">
                                     <span class="layout-opt active" onclick="setLayout(this, 'grid')">Grid</span>
                                     <span class="layout-opt" onclick="setLayout(this, 'simple')">List</span>
-                                    <span class="layout-opt" oncli                                <h2 class="sec-title">
-                                    <span data-editable="title_family">Family Details</span>
+                                    <span class="layout-opt" onclick="setLayout(this, 'academic')">Academic</span>
+                                </div>
+                                <h2 class="sec-title">
+                                    <span data-editable="title_family">Family Information</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
                                 <div class="sec-description" data-editable="desc_family">
-                                    Information about parents and siblings
+                                    Details about your family background
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
                                 </div>
                                 <div class="detail-grid current-layout" id="family-data">
                                     <div class="block">
                                         <div class="item">
-                                            <span class="item-label" data-editable="label_father">Father's Detail</span>
-                                            <span class="item-val" data-editable="val_father">Late MD Obaidul Haque (Govt Service)</span>
-                                        </div>
-                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
-                                    </div>
-                                    <div class="block">
-                                        <div class="item">
-                                            <span class="item-label" data-editable="label_mother">Mother's Detail</span>
-                                            <span class="item-val" data-editable="val_mother">Mst. Diluara Begum (Homemaker)</span>
-                                        </div>
-                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
-                                    </div>
-                                    <div class="block">
-                                        <div class="item">
                                             <span class="item-label" data-editable="label_siblings">Siblings</span>
-                                            <span class="item-val" data-editable="fam_siblings">3 Brothers (1 Married) & 1 Sister (Married)</span>
+                                            <span class="item-val" data-editable="fam_siblings">Total 3 Brothers & 1 Sister</span>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
-                                </div>
-暴
-button></div>
+                                    <div class="block">
+                                        <div class="item">
+                                            <span class="item-label" data-editable="label_marital_status">Marital Status</span>
+                                            <span class="item-val" data-editable="marital_status">Unmarried</span>
+                                        </div>
+                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
                                 </div>
                                 <button class="btn-add-section" onclick="addItemFromBtn(this)">+ Add Info</button>
