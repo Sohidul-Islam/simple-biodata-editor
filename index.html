@@ -1051,13 +1051,12 @@
                                     <span class="layout-opt" onclick="setLayout(this, 'grid')">Grid</span>
                                     <span class="layout-opt active" onclick="setLayout(this, 'simple')">List</span>
                                     <span class="layout-opt" onclick="setLayout(this, 'academic')">Academic</span>
-                                </div>
-                                <h2 class="sec-title">
-                                    <span data-editable="title_personal">Personal Information</span>
+                                               <h2 class="sec-title">
+                                    <span data-editable="title_personal">Personal Details</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
                                 <div class="sec-description" data-editable="desc_personal">
-                                    Key personal details and basic identity information
+                                    Basic identity and physical appearance information
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
                                 </div>
                                 <div class="simple-list current-layout" id="personal-data">
@@ -1070,22 +1069,29 @@
                                     </div>
                                     <div class="block">
                                         <div class="item">
-                                            <span class="item-label" data-editable="label_father_name">Father's Name</span>
-                                            <span class="item-val" data-editable="father_name">Late MD Obaidul Haque</span>
-                                        </div>
-                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
-                                    </div>
-                                    <div class="block">
-                                        <div class="item">
-                                            <span class="item-label" data-editable="label_mother_name">Mother's Name</span>
-                                            <span class="item-val" data-editable="mother_name">Mst. Diluara Begum</span>
-                                        </div>
-                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
-                                    </div>
-                                    <div class="block">
-                                        <div class="item">
                                             <span class="item-label" data-editable="label_dob">Date of Birth</span>
                                             <span class="item-val" data-editable="dob">20 October 1998</span>
+                                        </div>
+                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                                    </div>
+                                    <div class="block">
+                                        <div class="item">
+                                            <span class="item-label" data-editable="label_height">Height</span>
+                                            <span class="item-val" data-editable="val_height">5 feet 8 inches</span>
+                                        </div>
+                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                                    </div>
+                                    <div class="block">
+                                        <div class="item">
+                                            <span class="item-label" data-editable="label_weight">Weight</span>
+                                            <span class="item-val" data-editable="val_weight">65 KG</span>
+                                        </div>
+                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                                    </div>
+                                    <div class="block">
+                                        <div class="item">
+                                            <span class="item-label" data-editable="label_complexion">Complexion</span>
+                                            <span class="item-val" data-editable="val_complexion">Fair</span>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
@@ -1098,11 +1104,14 @@
                                     </div>
                                     <div class="block">
                                         <div class="item">
-                                            <span class="item-label" data-editable="label_religion">Religion</span>
+                                            <span class="item-label" data-editable="label_religion">Religion & Caste</span>
                                             <span class="item-val" data-editable="religion">Islam (Sunni)</span>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
+                                </div>
+暴
+
                                 </div>
                                 <button class="btn-add-section" onclick="addItemFromBtn(this)">+ Add Item</button>
                             </section>
@@ -1234,30 +1243,39 @@
                                 <div class="layout-switcher">
                                     <span class="layout-opt active" onclick="setLayout(this, 'grid')">Grid</span>
                                     <span class="layout-opt" onclick="setLayout(this, 'simple')">List</span>
-                                    <span class="layout-opt" onclick="setLayout(this, 'academic')">Academic</span>
-                                </div>
-                                <h2 class="sec-title">
-                                    <span data-editable="title_family">Family Information</span>
+                                    <span class="layout-opt" oncli                                <h2 class="sec-title">
+                                    <span data-editable="title_family">Family Details</span>
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="removeSection(this)" title="Delete Section">✕</button></div>
                                 </h2>
                                 <div class="sec-description" data-editable="desc_family">
-                                    Details about your family background
+                                    Information about parents and siblings
                                     <div class="edit-controls"><button class="action-btn btn-del" onclick="this.closest('.sec-description').remove()">✕</button></div>
                                 </div>
                                 <div class="detail-grid current-layout" id="family-data">
                                     <div class="block">
                                         <div class="item">
-                                            <span class="item-label" data-editable="label_siblings">Siblings</span>
-                                            <span class="item-val" data-editable="fam_siblings">Total 3 Brothers & 1 Sister</span>
+                                            <span class="item-label" data-editable="label_father">Father's Detail</span>
+                                            <span class="item-val" data-editable="val_father">Late MD Obaidul Haque (Govt Service)</span>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
                                     </div>
                                     <div class="block">
                                         <div class="item">
-                                            <span class="item-label" data-editable="label_marital_status">Marital Status</span>
-                                            <span class="item-val" data-editable="marital_status">Unmarried</span>
+                                            <span class="item-label" data-editable="label_mother">Mother's Detail</span>
+                                            <span class="item-val" data-editable="val_mother">Mst. Diluara Begum (Homemaker)</span>
                                         </div>
                                         <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                                    </div>
+                                    <div class="block">
+                                        <div class="item">
+                                            <span class="item-label" data-editable="label_siblings">Siblings</span>
+                                            <span class="item-val" data-editable="fam_siblings">3 Brothers (1 Married) & 1 Sister (Married)</span>
+                                        </div>
+                                        <div class="edit-controls"><button class="action-btn btn-del" onclick="removeItem(this)">✕</button></div>
+                                    </div>
+                                </div>
+暴
+button></div>
                                     </div>
                                 </div>
                                 <button class="btn-add-section" onclick="addItemFromBtn(this)">+ Add Info</button>
