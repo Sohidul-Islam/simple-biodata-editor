@@ -179,6 +179,21 @@ body {
     visibility: hidden;
   }
 
+  /* Reset all ancestors of print-target to clean, natural block elements so they never interfere with A4 page fragmentation */
+  body *:has(#print-target) {
+    display: block !important;
+    position: relative !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    border: none !important;
+    transform: none !important;
+  }
+
   /* Only make the print target element visible */
   #print-target,
   #print-target * {
@@ -186,13 +201,11 @@ body {
   }
 
   #print-target {
-    position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
+    position: relative !important; /* Flow naturally in the block layout to calculate A4 breaks perfectly */
+    margin: 0 auto !important;
     width: 210mm !important;
     min-height: 297mm !important;
     padding: 0 !important;
-    margin: 0 !important;
     transform: none !important; /* Force reset zoom scaling */
     margin-bottom: 0 !important; /* Reset preview offset margins */
     box-shadow: none !important;
@@ -210,8 +223,7 @@ body {
     border-top: 8px solid var(--accent) !important;
     background-color: var(--bg-color) !important;
     box-sizing: border-box !important;
-    display: flex !important;
-    flex-direction: column !important;
+    display: block !important; /* Force block layout to allow smooth native multi-page breaks */
 
     /* The secret weapon: Clone page-break decoration fragments! */
     -webkit-box-decoration-break: clone !important;
