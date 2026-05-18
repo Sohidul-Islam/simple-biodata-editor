@@ -154,7 +154,10 @@ export async function createDefaultBiodata(name: string = 'MD Mubtashim Fuad Fah
 
 export async function saveBiodata(id: string, data: Partial<BiodataData>) {
   try {
-    await db.update(biodatas).set(data).where(eq(biodatas.id, id));
+    // Omit primary key and database-managed timestamp fields from the update payload
+    const { id: _, createdAt, updatedAt, ...updatePayload } = data as any;
+
+    await db.update(biodatas).set(updatePayload).where(eq(biodatas.id, id));
     revalidatePath(`/editor/${id}`);
     revalidatePath(`/share/${id}`);
     revalidatePath('/');
