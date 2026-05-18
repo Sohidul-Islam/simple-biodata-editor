@@ -1,7 +1,7 @@
 import { BiodataData, BiodataSection } from '@/app/actions';
 
 const OLLAMA_HOST = process.env.OLLAMA_HOST || 'http://127.0.0.1:11434';
-const MODEL_NAME = process.env.OLLAMA_MODEL || 'qwen2.5:3b';
+const MODEL_NAME = process.env.OLLAMA_MODEL || 'gemma3';
 
 /**
  * Interface with the local Ollama LLM to enhance and structure the Markdown text into our Biodata database format.
