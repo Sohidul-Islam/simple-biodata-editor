@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Next.js Full Stack Web Application
   web:
@@ -8,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: bioeditor-web
     ports:
-      - '3000:3000'
+      - '3001:3000'
     volumes:
       - .:/app
       - /app/node_modules

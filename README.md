@@ -40,7 +40,7 @@ docker compose up --build
 
 Once Docker finishes launching, open these links in your browser:
 
-* **Live Web Application**: [http://localhost:3000](http://localhost:3000)
+* **Live Web Application**: [http://localhost:3001](http://localhost:3001)
 * **phpMyAdmin Database Panel**: [http://localhost:8080](http://localhost:8080)
   * *Username:* `root`
   * *Password:* `rootpassword`
