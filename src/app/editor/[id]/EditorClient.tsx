@@ -295,7 +295,7 @@ export default function EditorClient({ initialData }: EditorClientProps) {
                     <div className="flex items-center gap-4">
                       {data.photo ? (
                         <div className="relative w-16 h-20 border border-slate-700 rounded overflow-hidden flex-shrink-0 bg-slate-800">
-                          <img src={data.photo} className="w-100 h-100 object-cover" alt="Profile" />
+                          <img src={data.photo} className="w-full h-full object-cover" alt="Profile" />
                           <button
                             onClick={removePhoto}
                             className="absolute inset-0 bg-black/60 opacity-0 hover:opacity-100 transition flex items-center justify-center text-[10px] text-red-400 font-bold uppercase cursor-pointer"
@@ -660,9 +660,9 @@ export default function EditorClient({ initialData }: EditorClientProps) {
 
                 {/* Profile Photo */}
                 <div className="w-[140px] h-[180px] border border-[var(--accent)] p-1 bg-white rounded shadow-sm flex-shrink-0">
-                  <div className="w-100 h-100 border border-dashed border-[var(--accent)] bg-[var(--accent-light)] flex flex-col justify-center items-center text-center overflow-hidden">
+                  <div className="w-full h-full border border-dashed border-[var(--accent)] bg-[var(--accent-light)] flex flex-col justify-center items-center text-center overflow-hidden">
                     {data.photo ? (
-                      <img src={data.photo} className="w-100 h-100 object-cover" alt="Profile" />
+                      <img src={data.photo} className="w-full h-full object-cover" alt="Profile" />
                     ) : (
                       <div className="text-[9px] font-bold text-[var(--accent)] flex flex-col items-center gap-1.5 opacity-60">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

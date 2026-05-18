@@ -100,9 +100,9 @@ export default function ShareClient({ biodata }: ShareClientProps) {
 
               {/* Profile Photo */}
               <div className="w-[140px] h-[180px] border border-[var(--accent)] p-1 bg-white rounded shadow-sm flex-shrink-0">
-                <div className="w-100 h-100 border border-dashed border-[var(--accent)] bg-[var(--accent-light)] flex flex-col justify-center items-center text-center overflow-hidden">
+                <div className="w-full h-full border border-dashed border-[var(--accent)] bg-[var(--accent-light)] flex flex-col justify-center items-center text-center overflow-hidden">
                   {biodata.photo ? (
-                    <img src={biodata.photo} className="w-100 h-100 object-cover" alt="Profile" />
+                    <img src={biodata.photo} className="w-full h-full object-cover" alt="Profile" />
                   ) : (
                     <div className="text-[9px] font-bold text-[var(--accent)] flex flex-col items-center gap-1.5 opacity-60">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
