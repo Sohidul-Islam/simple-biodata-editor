@@ -45,5 +45,24 @@ services:
       - db
     restart: always
 
+  # Redis Cache & Message Broker for Queue System (BullMQ)
+  redis:
+    image: redis:alpine
+    container_name: bioeditor-redis
+    ports:
+      - '6379:6379'
+    restart: always
+
+  # Ollama Local LLM Server
+  ollama:
+    image: ollama/ollama:latest
+    container_name: bioeditor-ollama
+    ports:
+      - '11434:11434'
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: always
+
 volumes:
   mysql_data:
+  ollama_data:

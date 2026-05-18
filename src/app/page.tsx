@@ -1,6 +1,7 @@
 import { getBiodatas, createDefaultBiodata } from './actions';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import CreatorPanel from './components/CreatorPanel';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,15 +15,10 @@ export default async function DashboardPage() {
     dbError = error.message || 'Failed to connect to MySQL';
   }
 
-  async function handleCreate(formData: FormData) {
+  async function handleCreateAction(name: string) {
     'use server';
-    const name = formData.get('name') as string || 'MD Mubtashim Fuad Fahim';
-    try {
-      const id = await createDefaultBiodata(name);
-      redirect(`/editor/${id}`);
-    } catch (err) {
-      console.error('Failed to create default biodata:', err);
-    }
+    const id = await createDefaultBiodata(name);
+    redirect(`/editor/${id}`);
   }
 
   // Database Connection Error view
@@ -113,36 +109,7 @@ export default async function DashboardPage() {
         
         {/* Left Side - Creator CTA Panel */}
         <div className="md:w-1/3 space-y-6">
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
-            <h2 className="text-lg font-bold text-slate-800">Create New Biodata</h2>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              Start building a stunning, highly customized wedding biodata. It generates a rich, pre-filled default template instantly so you do not have to write from scratch!
-            </p>
-            
-            <form action={handleCreate} className="space-y-4 pt-2">
-              <div className="space-y-2">
-                <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider block">Groom/Bride Full Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  placeholder="e.g. MD Mubtashim Fuad Fahim"
-                  defaultValue="MD Mubtashim Fuad Fahim"
-                  className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm bg-slate-50 transition"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full py-3 bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white rounded-lg font-semibold text-sm transition shadow-lg shadow-rose-100 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-                Generate Biodata
-              </button>
-            </form>
-          </div>
+          <CreatorPanel handleCreateAction={handleCreateAction} />
 
           <div className="bg-rose-50 rounded-2xl border border-rose-100 p-6 space-y-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-rose-800">Architecture Overview</h3>
