@@ -202,6 +202,68 @@ pm2 save
 
 ---
 
+## 🧠 Ollama Local LLM & Model Switching Guide
+
+BioEditor Studio utilizes a local **Ollama** LLM server to process and format extracted resumes into structured, high-fidelity wedding biodatas. The default model is **Google Gemma 3** (`gemma3`), which provides an excellent balance of structure-adherence, linguistic courtesy, and lightweight execution on standard VPS CPUs.
+
+You can switch to any other LLM supported by Ollama (e.g., `qwen2.5:3b`, `llama3.2`, `gemma2`) depending on your hardware limits and accuracy requirements.
+
+### ⚙️ Model Switching Criteria & Steps
+
+To switch models, you need to **pull the weights inside Ollama** and **configure the Next.js app environment variable**.
+
+#### Option A: Docker-Based Deployment (Recommended)
+
+1. **Pull the model weights** inside the running Ollama container (e.g., to pull `gemma3`):
+   ```bash
+   docker exec -it bioeditor-ollama ollama pull gemma3
+   ```
+   *(Note: For VPS deployments, ensure the container name matches. If you run a custom setup, pull the model weights inside your active Ollama instance).*
+
+2. **Configure the application model environment variable** by editing [docker-compose.yml](file:///home/sishufol/BioEditor/simple-biodata-editor/docker-compose.yml):
+   Add the `OLLAMA_MODEL` environment variable inside the `web` service's `environment:` block:
+   ```yaml
+   services:
+     web:
+       ...
+       environment:
+         - DATABASE_URL=mysql://root:rootpassword@db:3306/simple_biodata_editor
+         - NODE_ENV=development
+         - REDIS_HOST=redis
+         - OLLAMA_HOST=http://ollama:11434
+         - OLLAMA_MODEL=gemma3 # <-- Add or customize your model name here!
+   ```
+
+3. **Restart the Next.js container** to apply the configuration changes:
+   ```bash
+   docker compose restart web
+   ```
+
+---
+
+#### Option B: Host-Level Deployment (Ubuntu VPS / Local)
+
+1. **Pull the model weights** in your active terminal:
+   ```bash
+   ollama pull gemma3
+   ```
+
+2. **Configure the environment variable** inside your local [.env](file:///home/sishufol/BioEditor/simple-biodata-editor/.env) file:
+   ```env
+   OLLAMA_MODEL=gemma3
+   ```
+
+3. **Restart your PM2 process or local server** to load the updated environment variables:
+   ```bash
+   # If running with PM2:
+   pm2 restart bioeditor-studio
+
+   # If running locally:
+   npm run dev
+   ```
+
+---
+
 ## 🛠️ Available NPM Scripts
 
 You can execute the following commands in the project terminal:
