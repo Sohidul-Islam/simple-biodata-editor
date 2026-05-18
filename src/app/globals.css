@@ -217,7 +217,7 @@ body {
   .paper {
     width: 210mm !important;
     min-height: 297mm !important;
-    padding: 20mm 25mm !important; /* Premium comfortable page margins cloned to all pages */
+    padding: 40px 60px !important; /* Matches the screen preview margins exactly so text wraps identically! */
     margin: 0 !important;
     box-shadow: none !important;
     border-top: 8px solid var(--accent) !important;
