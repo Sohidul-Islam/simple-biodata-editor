@@ -42,6 +42,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${montserrat.variable} ${playfairDisplay.variable} ${lora.variable} ${outfit.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">{children}</body>
     </html>
