@@ -169,10 +169,15 @@ body {
   body {
     width: 210mm !important;
     height: auto !important;
-    background: #ffffff !important;
+    background-color: #ffffff !important;
     margin: 0 !important;
     padding: 0 !important;
     overflow: visible !important;
+  }
+
+  html:has(.theme-dark),
+  body:has(.theme-dark) {
+    background-color: #0f172a !important;
   }
 
   /* Completely hide all elements marked with no-print */
