@@ -100,6 +100,106 @@ npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+
+---
+
+## 🚀 VPS & Cloud Server Deployment
+
+To deploy BioEditor Studio to a VPS (e.g., DigitalOcean, Linode, AWS EC2, Hetzner, Vultr) or Cloud Hosting, you can manage it either **via Docker (Highly Recommended)** or **directly on the Host OS**.
+
+---
+
+### 📋 System & Hardware Requisitions
+
+Due to the advanced AI components (IBM Docling for document parsing, PyTorch CPU libraries, and Ollama for the local LLM), the VPS has the following hardware requirements:
+
+| Component | Minimum Requisition | Recommended Requisition | Rationale |
+| :--- | :--- | :--- | :--- |
+| **CPU** | **2 Cores** | **4 Cores** | Required for ONNX Runtime OCR and local LLM model execution. |
+| **RAM** | **4 GB RAM** | **8 GB RAM** | IBM Docling (1.5GB) + Ollama LLM (2GB+) + Next.js/MySQL (1GB). |
+| **Storage** | **20 GB SSD** | **40 GB+ SSD** | To accommodate Docker images, OCR models, and local LLM model weights. |
+| **OS** | **Ubuntu 22.04 LTS** | **Ubuntu 24.04 LTS** | Standardized for modern package compatibility and Docker engine. |
+
+---
+
+### 🐳 Option A: Docker-Based Deployment (Recommended)
+
+Managing your application from Docker on a VPS is incredibly clean because **all dependencies (Node, Python 3, Docling, MySQL, Redis, phpMyAdmin, and Ollama) are fully containerized**. The `Dockerfile` has been optimized using a Debian-based `node:20-bookworm-slim` base image to support PyTorch and glibc libraries out of the box.
+
+#### 1. Setup Docker on the VPS
+Install the Docker Engine and Docker Compose on your Ubuntu VPS:
+```bash
+sudo apt-get update
+sudo apt-get install -y docker.io docker-compose-v2
+sudo systemctl enable --now docker
+```
+
+#### 2. Configure Environment Variables
+Create a production `.env` file in the root of the project:
+```env
+DATABASE_URL=mysql://root:secure_production_password@db:3306/simple_biodata_editor
+NODE_ENV=production
+```
+
+#### 3. Adjust Docker Compose for Production
+For a production deployment:
+1. Update `docker-compose.yml` environment passwords (`MYSQL_ROOT_PASSWORD`) and PMA configuration to secure values.
+2. If you are not using `phpmyadmin` in production, you can comment it out from the services list.
+
+#### 4. Spin Up the Stack
+Run Docker Compose in detached mode to launch everything in the background:
+```bash
+docker compose up -d --build
+```
+Docker will pull all dependencies, compile the database migrations, and boot the application automatically!
+
+---
+
+### 💻 Option B: Host-Level Deployment (Ubuntu VPS)
+
+If your VPS has limited resources (e.g., 2GB–4GB RAM) and you want to bypass the resource overhead of Docker virtualization, you can install the components directly on the host OS.
+
+#### 1. Install Node.js, MySQL, & Redis
+```bash
+# Install Node.js (v20)
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Install MySQL & Redis
+sudo apt-get install -y mysql-server redis-server
+sudo systemctl enable --now mysql redis-server
+```
+
+#### 2. Install Python 3, Pip, and IBM Docling
+IBM Docling uses deep learning and layout tools that require `libgomp1` (OpenMP runtime library) on Debian/Ubuntu systems:
+```bash
+# Install system packages
+sudo apt-get update
+sudo apt-get install -y python3 python3-pip libgomp1
+
+# Install Docling system-wide
+sudo pip3 install --break-system-packages docling
+```
+
+#### 3. Build & Run Next.js with PM2 (Production Process Manager)
+Install PM2 globally to manage the Node server lifecycle, keep it running, and restart it on system reboots:
+```bash
+# Install PM2
+sudo npm install -g pm2
+
+# Build Next.js app
+npm install
+npx drizzle-kit push
+npm run build
+
+# Start with PM2
+pm2 start npm --name "bioeditor-studio" -- run start
+
+# Enable startup script
+pm2 startup
+pm2 save
+```
+
 ---
 
 ## 🛠️ Available NPM Scripts
