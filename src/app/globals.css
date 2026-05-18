@@ -175,57 +175,28 @@ body {
     overflow: visible !important;
   }
 
-  /* Hide absolutely everything in the web application to prevent layout footprint leaks */
-  html *,
-  body * {
+  /* Completely hide all elements marked with no-print */
+  .no-print {
     display: none !important;
   }
 
-  /* Keep only the direct ancestors of #print-target visible and flowing as standard blocks */
-  html,
-  body,
-  body *:has(#print-target) {
+  /* Make sure all parent elements of the print target become flat, transparent, non-interfering block containers */
+  main,
+  div:has(#print-target) {
     display: block !important;
-    visibility: visible !important;
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
     overflow: visible !important;
     box-shadow: none !important;
     border: none !important;
     transform: none !important;
   }
 
-  /* Force display and visibility on #print-target and all of its contents */
-  #print-target,
-  #print-target * {
-    display: block !important;
-    visibility: visible !important;
-  }
-
-  /* Restore granular internal CSS grid/flex layout structures within #print-target */
-  #print-target .flex,
-  #print-target [class*="flex"] {
-    display: flex !important;
-  }
-
-  #print-target .grid,
-  #print-target .detail-grid {
-    display: grid !important;
-  }
-
-  #print-target .academic-layout .block {
-    display: flex !important;
-  }
-
-  #print-target .simple-list,
-  #print-target .full-width-text {
-    display: flex !important;
-    flex-direction: column !important;
-  }
-
+  /* Force print-target to display as relative flowing block */
   #print-target {
     position: relative !important; /* Flow naturally in the block layout to calculate A4 breaks perfectly */
     margin: 0 auto !important;

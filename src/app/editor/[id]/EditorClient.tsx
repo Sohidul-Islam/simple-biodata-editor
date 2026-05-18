@@ -199,7 +199,7 @@ export default function EditorClient({ initialData }: EditorClientProps) {
   return (
     <div className="h-screen flex flex-col antialiased bg-slate-900 text-slate-100 overflow-hidden">
       {/* Top Header */}
-      <header className="h-16 bg-slate-950 border-b border-slate-800 px-6 flex justify-between items-center z-10 flex-shrink-0">
+      <header className="h-16 bg-slate-950 border-b border-slate-800 px-6 flex justify-between items-center z-10 flex-shrink-0 no-print">
         <div className="flex items-center gap-4">
           <Link 
             href="/"
@@ -292,7 +292,7 @@ export default function EditorClient({ initialData }: EditorClientProps) {
       <div className="flex-1 flex overflow-hidden">
         
         {/* Left Side Panel - Editor Form Controls (40%) */}
-        <div className="w-full md:w-[40%] bg-slate-950 border-r border-slate-800 flex flex-col h-full flex-shrink-0 z-5 overflow-y-auto">
+        <div className="w-full md:w-[40%] bg-slate-950 border-r border-slate-800 flex flex-col h-full flex-shrink-0 z-5 overflow-y-auto no-print">
           {/* Theme & Palette Selection */}
           <div className="p-5 border-b border-slate-900 space-y-3 bg-slate-950/60">
             <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Palette Themes</label>
