@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # Next.js Full Stack Web Application
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bioeditor-web
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - DATABASE_URL=mysql://root:rootpassword@db:3306/simple_biodata_editor
+      - NODE_ENV=development
+    depends_on:
+      - db
+    restart: always
+
+  # MySQL Database Server
+  db:
+    image: mysql:8.0
+    container_name: bioeditor-db
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=simple_biodata_editor
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+  # phpMyAdmin Database Control Panel
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: bioeditor-phpmyadmin
+    ports:
+      - '8080:80'
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=rootpassword
+    depends_on:
+      - db
+    restart: always
+
+volumes:
+  mysql_data:

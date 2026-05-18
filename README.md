@@ -17,65 +17,87 @@ BioEditor Studio is a high-end web application that transitions a simple static 
 
 ---
 
-## 🚀 Step-by-Step Running Instructions
+## 🐳 Running with Docker (Recommended / Plug-and-Play)
 
-Follow these instructions to configure and run the application locally.
+The entire full-stack application environment (Next.js server + MySQL Database + phpMyAdmin control panel) is completely containerized. You can boot up the entire stack with a **single command**!
+
+### 1. Start the Environment
+
+Simply run this command in your project root folder:
+```bash
+docker compose up --build
+```
+
+### 🔍 What happens automatically under-the-hood:
+1. **MySQL 8** database container boots up and persists its data in a Docker-named volume (`mysql_data`).
+2. **phpMyAdmin** database manager boots up and links securely to the MySQL container.
+3. The **Next.js Web Container** starts and automatically waits for the MySQL port to accept TCP connections.
+4. Once database connectivity is active, it runs `npx drizzle-kit push` to **automatically compile and build your database tables**, then launches the Next.js dev server with Hot Module Replacement (HMR) active!
+
+---
+
+### 🌐 Access URLs
+
+Once Docker finishes launching, open these links in your browser:
+
+* **Live Web Application**: [http://localhost:3000](http://localhost:3000)
+* **phpMyAdmin Database Panel**: [http://localhost:8080](http://localhost:8080)
+  * *Username:* `root`
+  * *Password:* `rootpassword`
+
+---
+
+### 🔌 Connecting to an Existing Docker MySQL Instance
+
+If you are already running your own global MySQL server and phpMyAdmin containers and want to use those instead of our pre-packaged ones:
+
+1. Connect your Next.js app to your existing Docker MySQL instance by updating your [.env](file:///home/sishufol/BioEditor/simple-biodata-editor/.env) file:
+   ```env
+   DATABASE_URL=mysql://YOUR_USER:YOUR_PASSWORD@host.docker.internal:3306/simple_biodata_editor
+   ```
+2. Start **only** the web service using Docker Compose:
+   ```bash
+   docker compose up --build web
+   ```
+
+---
+
+## 💻 Manual Local Running (Alternative)
+
+If you prefer to run Node.js locally on your host machine without Docker:
 
 ### 📋 Prerequisites
-
-Before running the application, make sure you have:
 * **Node.js** (v18.x or later recommended)
 * **MySQL Server** (running locally or accessible remotely)
 * **npm** (comes packaged with Node.js)
 
----
-
 ### 1. Install Dependencies
-
-In the root directory of the project, run:
 ```bash
 npm install
 ```
 
----
-
 ### 2. Configure Environment Variables
-
-Create or open the `.env` file in the root directory and specify your MySQL database URL:
+Verify your MySQL database credentials in the local [.env](file:///home/sishufol/BioEditor/simple-biodata-editor/.env) file:
 ```env
 DATABASE_URL=mysql://YOUR_USER:YOUR_PASSWORD@127.0.0.1:3306/simple_biodata_editor
 ```
-*Replace `YOUR_USER` and `YOUR_PASSWORD` with your actual MySQL username and password.*
-
----
 
 ### 3. Create the Database
-
-Open your MySQL client or shell and run the following command to create the database:
+In your MySQL client or shell:
 ```sql
 CREATE DATABASE simple_biodata_editor;
 ```
 
----
-
-### 4. Push the Database Schema
-
-Push the Drizzle-mapped database schema directly to your MySQL server using:
+### 4. Push Database Schema
 ```bash
 npx drizzle-kit push
 ```
-*This instantly maps the TypeScript models in `src/db/schema.ts` to your MySQL instance, setting up all columns and types.*
 
----
-
-### 5. Launch the Development Server
-
-Start the Next.js development server:
+### 5. Launch local server
 ```bash
 npm run dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) in your web browser to access the dashboard!
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
@@ -85,20 +107,20 @@ You can execute the following commands in the project terminal:
 
 | Script | Command | Description |
 | :--- | :--- | :--- |
-| **`npm run dev`** | `next dev` | Starts the development server with Hot Module Replacement (HMR). |
-| **`npm run build`** | `next build` | Compiles and builds the production-ready Next.js bundles. |
-| **`npm run start`** | `next start` | Starts the Next.js production server after a successful build. |
-| **`npm run lint`** | `next lint` | Scans the codebase for static code syntax and quality checks. |
-| **`npx drizzle-kit generate`** | `drizzle-kit generate` | Generates SQL migration scripts inside the `./drizzle` folder. |
-| **`npx drizzle-kit push`** | `drizzle-kit push` | Syncs your local schema changes directly to the MySQL database without generating migrations. |
-| **`npx tsc --noEmit`** | `tsc --noEmit` | Performs a complete static TypeScript compilation check on all files. |
+| **`npm run dev`** | `next dev` | Starts the development server locally with HMR. |
+| **`npm run build`** | `next build` | Compiles and builds the production Next.js application bundles. |
+| **`npm run start`** | `next start` | Starts the production server after a successful build. |
+| **`npm run lint`** | `next lint` | Scans the codebase for static syntax and code formatting. |
+| **`npx drizzle-kit generate`** | `drizzle-kit generate` | Generates SQL migration files inside the `./drizzle` folder. |
+| **`npx drizzle-kit push`** | `drizzle-kit push` | Syncs local schema changes directly to your MySQL database instantly. |
+| **`npx tsc --noEmit`** | `tsc --noEmit` | Performs a static TypeScript compiler verification on all files. |
 
 ---
 
 ## 💡 Developer & IDE Tips
 
 ### VS Code Red Underline / TS(2307) Cache Lag
-When files are generated dynamically by external scripts or tools, VS Code's internal TypeScript server can experience cached virtual memory lag, showing incorrect red squiggly lines under relative imports.
+When files are generated dynamically by external tools, VS Code's internal TypeScript server can experience cached virtual memory lag, showing incorrect red squiggly lines under relative imports.
 
 If this happens:
 1. Open the Command Palette in VS Code: `Ctrl + Shift + P` (or `Cmd + Shift + P` on macOS).
