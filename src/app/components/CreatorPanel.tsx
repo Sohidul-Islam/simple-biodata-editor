@@ -9,9 +9,10 @@ interface CreatorPanelProps {
 
 export default function CreatorPanel({ handleCreateAction }: CreatorPanelProps) {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'default' | 'ai'>('default');
+  const [activeTab, setActiveTab] = useState<'default' | 'ai' | 'prompt'>('default');
   const [name, setName] = useState('MD Mubtashim Fuad Fahim');
   const [isCreatingDefault, setIsCreatingDefault] = useState(false);
+  const [promptText, setPromptText] = useState('');
   
   // AI Import States
   const [file, setFile] = useState<File | null>(null);
@@ -106,6 +107,41 @@ export default function CreatorPanel({ handleCreateAction }: CreatorPanelProps) 
     }
   };
 
+  // AI Prompt Submission Handler
+  const handleAiPromptSubmit = async () => {
+    if (!promptText.trim()) return;
+    setUploading(true);
+    setProgress(5);
+    setStatusMessage('Preparing your prompt text securely...');
+    setError(null);
+
+    // Create a virtual plain text file from the prompt text
+    const textFile = new File([promptText], 'prompt.txt', { type: 'text/plain' });
+
+    const formData = new FormData();
+    formData.append('file', textFile);
+    formData.append('name', name);
+
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errJson = await response.json();
+        throw new Error(errJson.error || 'Upload failed');
+      }
+
+      const { jobId } = await response.json();
+      pollJobStatus(jobId);
+    } catch (err: any) {
+      console.error('Prompt submission error:', err);
+      setError(err.message || 'Failed to process prompt.');
+      setUploading(false);
+    }
+  };
+
   // Poll BullMQ Job status
   const pollJobStatus = (jobId: string) => {
     const interval = setInterval(async () => {
@@ -185,6 +221,20 @@ export default function CreatorPanel({ handleCreateAction }: CreatorPanelProps) 
           </svg>
           AI Import
         </button>
+        <button
+          onClick={() => !uploading && setActiveTab('prompt')}
+          disabled={uploading}
+          className={`flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all flex items-center justify-center gap-1.5 ${
+            activeTab === 'prompt'
+              ? 'bg-rose-600 text-white shadow-sm'
+              : 'text-slate-500 hover:text-slate-850 cursor-pointer'
+          }`}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          AI Prompt
+        </button>
       </div>
 
       {activeTab === 'default' ? (
@@ -228,7 +278,7 @@ export default function CreatorPanel({ handleCreateAction }: CreatorPanelProps) 
             )}
           </button>
         </form>
-      ) : (
+      ) : activeTab === 'ai' ? (
         // AI Upload wizard
         <div className="space-y-4">
           <p className="text-sm text-slate-500 leading-relaxed">
@@ -323,6 +373,85 @@ export default function CreatorPanel({ handleCreateAction }: CreatorPanelProps) 
               <div className="space-y-2">
                 <div className="flex justify-between text-xs font-bold text-slate-700">
                   <span className="truncate max-w-[170px]">{file?.name}</span>
+                  <span className="font-mono text-rose-600 animate-pulse">{progress}%</span>
+                </div>
+                
+                {/* Visual Progress Bar */}
+                <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden border border-slate-200 shadow-inner">
+                  <div
+                    className="bg-gradient-to-r from-rose-500 to-amber-500 h-full rounded-full transition-all duration-500"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl p-3.5 shadow-sm">
+                <div className="relative flex-shrink-0 flex items-center justify-center w-8 h-8">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-rose-450 opacity-15 animate-ping" />
+                  <div className="w-6 h-6 rounded-full border-2 border-t-rose-600 border-rose-150 animate-spin" />
+                </div>
+                <div className="space-y-0.5 min-w-0">
+                  <h4 className="text-xxs font-bold uppercase tracking-wider text-slate-400">Processing Stage</h4>
+                  <p className="text-xs font-semibold text-slate-750 truncate leading-snug">{statusMessage}</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        // AI Prompt wizard
+        <div className="space-y-4">
+          <p className="text-sm text-slate-500 leading-relaxed">
+            Paste raw resume data, bio information, or personal details below. Our AI will automatically analyze, structure, and design your wedding biodata!
+          </p>
+
+          {!uploading ? (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider block">Paste Biodata/Resume Info</label>
+                <textarea
+                  value={promptText}
+                  onChange={(e) => setPromptText(e.target.value)}
+                  placeholder="e.g. My name is MD Mubtashim Fuad Fahim. Born on 12th Oct 1999, 5'10'', 72kg, Sunni Muslim. I studied B.Sc. in CSE at BUET, passing in 2023 with CGPA 3.85. Currently working as a Software Engineer at Google since Jan 2024. My father is MD Abdur Rahman (retired government officer) and my mother is Rokeya Begum..."
+                  rows={6}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-xs bg-slate-50 transition resize-none leading-relaxed"
+                />
+              </div>
+
+              {/* Subject Full Name for the database record */}
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Groom/Bride Name (Fallback)</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Fallback name if AI cannot detect it"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-350 focus:outline-none focus:ring-1 focus:ring-rose-500 text-xs bg-slate-50"
+                />
+              </div>
+
+              {error && (
+                <div className="bg-red-50 border border-red-150 rounded-xl p-3 text-red-700 text-xxs font-semibold leading-normal flex items-start gap-2">
+                  <span>⚠️</span>
+                  <span>{error}</span>
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={handleAiPromptSubmit}
+                disabled={!promptText.trim()}
+                className="w-full py-3 bg-rose-600 hover:bg-rose-700 active:bg-rose-800 disabled:bg-slate-300 disabled:text-slate-400 text-white rounded-lg font-bold text-sm transition shadow-lg shadow-rose-100 flex items-center justify-center gap-2 cursor-pointer"
+              >
+                Generate with AI Prompt
+              </button>
+            </div>
+          ) : (
+            // Processing/Upload state
+            <div className="py-4 space-y-4">
+              <div className="space-y-2">
+                <div className="flex justify-between text-xs font-bold text-slate-700">
+                  <span>AI Prompt Processing</span>
                   <span className="font-mono text-rose-600 animate-pulse">{progress}%</span>
                 </div>
                 

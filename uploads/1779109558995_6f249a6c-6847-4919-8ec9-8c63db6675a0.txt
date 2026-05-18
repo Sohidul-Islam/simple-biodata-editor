@@ -1,0 +1,104 @@
+BIODATA
+
+Name: Md. Arif Hossain
+
+Father's Name: Abdul Mannan
+Mother's Name: Salma Begum
+
+Date of Birth: 15 June 1997
+Age: 28 Years
+
+Height: 5 Feet 8 Inches
+Weight: 68 KG
+
+Religion: Islam
+Nationality: Bangladeshi
+Marital Status: Unmarried
+
+Present Address:
+Uttara, Dhaka, Bangladesh
+
+Permanent Address:
+Cumilla, Chattogram, Bangladesh
+
+Mobile:
++8801712345678
+
+Email:
+arifhossain97@gmail.com
+
+--------------------------------------------------
+
+EDUCATIONAL QUALIFICATION
+
+SSC
+School: Cumilla Zilla School
+Group: Science
+Passing Year: 2013
+GPA: 5.00
+
+HSC
+College: Dhaka College
+Group: Science
+Passing Year: 2015
+GPA: 4.80
+
+BSc in Computer Science & Engineering
+University: Daffodil International University
+Passing Year: 2020
+CGPA: 3.52 out of 4.00
+
+--------------------------------------------------
+
+WORK EXPERIENCE
+
+Software Engineer
+ABC Tech Solutions
+2021 - Present
+
+Responsibilities:
+- Web application development
+- Frontend UI implementation
+- API integration
+
+--------------------------------------------------
+
+SKILLS
+
+- React.js
+- Next.js
+- TypeScript
+- Node.js
+- PostgreSQL
+
+--------------------------------------------------
+
+LANGUAGES
+
+- Bengali
+- English
+
+--------------------------------------------------
+
+HOBBIES
+
+- Reading Books
+- Traveling
+- Cricket
+
+--------------------------------------------------
+
+REFERENCE
+
+Md. Kamrul Hasan
+Senior Software Engineer
+ABC Tech Solutions
+
+Phone:
++8801812345678
+
+--------------------------------------------------
+
+DECLARATION
+
+I hereby declare that the above information is true and correct.
