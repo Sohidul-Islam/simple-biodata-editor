@@ -17,12 +17,24 @@ export async function parseDocumentWithDocling(filePath: string): Promise<string
       return reject(new Error(`Python script not found: ${scriptPath}`));
     }
 
-    // Run using python3
+    // Run using python3 with user-site packages in PYTHONPATH
     const command = `python3 "${scriptPath}" "${filePath}"`;
     console.log(`[Docling] Invoking Docling conversion for: ${filePath}`);
 
     // Set maxBuffer to 10MB to accommodate large parsed markdown structures
-    exec(command, { maxBuffer: 10 * 1024 * 1024 }, (error, stdout, stderr) => {
+    exec(
+      command,
+      {
+        maxBuffer: 10 * 1024 * 1024,
+        env: {
+          ...process.env,
+          PYTHONPATH: [
+            '/home/sishufol/.local/lib/python3.12/site-packages',
+            process.env.PYTHONPATH || ''
+          ].filter(Boolean).join(':')
+        }
+      },
+      (error, stdout, stderr) => {
       if (error) {
         console.error(`[Docling] Shell execution error:`, error);
         console.error(`[Docling] Stderr:`, stderr);
