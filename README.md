@@ -17,6 +17,63 @@ BioEditor Studio is a high-end web application that transitions a simple static 
 
 ---
 
+## 🔰 Complete Beginner's Friendly Guide
+
+Welcome to BioEditor Studio! If you are new to programming, full-stack development, or AI pipelines, this simple guide will explain how to start the application, use its core features, and inspect its activities with ease.
+
+### 🌟 1. The Three Core Features Explained
+When you open the web application, you will find three main ways to create a beautiful wedding biodata:
+1. **Blank Slate (No previous data)**:
+   * **What it does**: Initializes a brand new biodata instantly.
+   * **When to use**: If you are starting fresh and do not have an existing resume/biodata. Just enter the full name, click generate, and start editing!
+2. **AI Import (If you have a file)**:
+   * **What it does**: Lets you upload an existing resume/biodata file in **PDF, DOCX, TXT, MD, or Image** format.
+   * **When to use**: If you already have a structured CV or a scan of a biodata document. The app automatically extracts and structures everything for you.
+3. **AI Prompt (If you want to copy-paste or write a description)**:
+   * **What it does**: Provides a text area where you can type or paste a direct description of yourself or someone else.
+   * **When to use**: If you don't have a document file, but want the local AI to draft a beautiful layout from raw, unstructured notes (e.g., *"My name is Rahim, studying at BUET, my dad is a teacher..."*).
+
+---
+
+### 🚀 2. Absolute Beginner's Launch Guide (Step-by-Step)
+You do not need to install local databases, Node environments, or Python packages! Everything is pre-configured to run with Docker in a single click:
+
+1. **Prerequisites**: Make sure you have **Docker Desktop** installed on your system ([Download Docker here](https://www.docker.com/products/docker-desktop/)).
+2. **Start the Application**: Open your computer's terminal (or shell) in this project directory, and type:
+   ```bash
+   docker compose up -d --build
+   ```
+   *(The `-d` option runs the processes in the background, keeping your terminal window free!)*
+3. **Access the Application**: Open your web browser and go to:
+   * 🌐 **Live Web App**: [http://localhost:3001](http://localhost:3001)
+
+---
+
+### 👁️ 3. How to Watch the AI's Brain (Inspecting Logs)
+Our document parsing pipeline uses two high-end AI components inside the Docker network: **IBM Docling** and **Google Gemma 3**. If you want to see exactly how they parse layouts, clean formatting, and structure your biodata:
+1. Open a terminal and run this command:
+   ```bash
+   docker logs -f bioeditor-web
+   ```
+2. Now, go to the Web App and start an **AI Import** or **AI Prompt** task.
+3. You will see live print statements in your terminal showing:
+   * `[Docling] Invoking Docling conversion...` (OCR and layout extraction)
+   * `[Ollama] Querying model gemma3...` (AI structuring in action)
+   * `[Worker] Successfully saved parsed biodata...` (MySQL database insertion)
+
+---
+
+### 🗄️ 4. Managing Your Database Visually (Zero SQL Needed)
+If you want to see where all biodatas, items, and settings are saved without writing databases queries:
+1. Go to **phpMyAdmin** in your browser: [http://localhost:8085](http://localhost:8085)
+2. Log in with the credentials:
+   * *Username:* `root`
+   * *Password:* `rootpassword`
+3. Click on the database name **`simple_biodata_editor`** on the left menu.
+4. Click on the **`biodata`** table to view, edit, or delete created profiles inside a user-friendly spreadsheet view!
+
+---
+
 ## 🐳 Running with Docker (Recommended / Plug-and-Play)
 
 The entire full-stack application environment (Next.js server + MySQL Database + phpMyAdmin control panel) is completely containerized. You can boot up the entire stack with a **single command**!
