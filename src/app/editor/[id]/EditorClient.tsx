@@ -9,6 +9,51 @@ interface EditorClientProps {
   initialData: BiodataData;
 }
 
+// Optimize and compress Base64 image using HTML5 Canvas API
+const compressImage = (base64Str: string, maxWidth = 400, maxHeight = 500): Promise<string> => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = base64Str;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      let width = img.width;
+      let height = img.height;
+
+      // Calculate new dimensions keeping the aspect ratio intact
+      if (width > height) {
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+      } else {
+        if (height > maxHeight) {
+          width = Math.round((width * maxHeight) / height);
+          height = maxHeight;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        resolve(base64Str);
+        return;
+      }
+
+      // Draw the image
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // Export as optimized JPEG with a quality factor of 0.75
+      const optimizedBase64 = canvas.toDataURL('image/jpeg', 0.75);
+      resolve(optimizedBase64);
+    };
+    img.onerror = () => {
+      resolve(base64Str);
+    };
+  });
+};
+
 export default function EditorClient({ initialData }: EditorClientProps) {
   const router = useRouter();
   const [data, setData] = useState<BiodataData>(initialData);
@@ -42,15 +87,17 @@ export default function EditorClient({ initialData }: EditorClientProps) {
     });
   };
 
-  // Image Upload helper
+  // Image Upload helper with Client-Side Canvas Optimization
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.onload = async () => {
+      const rawBase64 = reader.result as string;
+      const optimizedBase64 = await compressImage(rawBase64);
       updateData((prev) => {
-        prev.photo = reader.result as string;
+        prev.photo = optimizedBase64;
       });
     };
     reader.readAsDataURL(file);
