@@ -20,10 +20,10 @@ services:
 
   # MySQL Database Server
   db:
-    image: mysql:8.0
+    image: mysql:latest
     container_name: bioeditor-db
     ports:
-      - '3306:3306'
+      - '3307:3306'
     environment:
       - MYSQL_ROOT_PASSWORD=rootpassword
       - MYSQL_DATABASE=simple_biodata_editor
@@ -36,7 +36,7 @@ services:
     image: phpmyadmin:latest
     container_name: bioeditor-phpmyadmin
     ports:
-      - '8080:80'
+      - '8085:80'
     environment:
       - PMA_HOST=db
       - PMA_USER=root

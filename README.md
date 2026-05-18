@@ -41,9 +41,10 @@ docker compose up --build
 Once Docker finishes launching, open these links in your browser:
 
 * **Live Web Application**: [http://localhost:3001](http://localhost:3001)
-* **phpMyAdmin Database Panel**: [http://localhost:8080](http://localhost:8080)
+* **phpMyAdmin Database Panel**: [http://localhost:8085](http://localhost:8085)
   * *Username:* `root`
   * *Password:* `rootpassword`
+* **Isolated MySQL Host Port**: `localhost:3307` *(To avoid clashes with your existing MySQL container running on port 3306!)*
 
 ---
 
