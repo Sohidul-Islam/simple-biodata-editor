@@ -36,7 +36,7 @@ export const parserQueue = globalForQueue.parserQueue ?? new Queue('biodata-pars
       type: 'exponential',
       delay: 5000,
     },
-    removeOnComplete: true, // Auto-clean completed jobs
+    removeOnComplete: 100, // Keep last 100 completed jobs to prevent race conditions during client polling
     removeOnFail: false,   // Keep failed jobs for debugging
   }
 });
