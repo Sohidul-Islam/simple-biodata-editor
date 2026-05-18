@@ -175,14 +175,18 @@ body {
     overflow: visible !important;
   }
 
+  /* Hide absolutely everything in the web application to prevent layout footprint leaks */
+  html *,
   body * {
-    visibility: hidden;
+    display: none !important;
   }
 
-  /* Reset all ancestors of print-target to clean, natural block elements so they never interfere with A4 page fragmentation */
+  /* Keep only the direct ancestors of #print-target visible and flowing as standard blocks */
+  html,
+  body,
   body *:has(#print-target) {
     display: block !important;
-    position: relative !important;
+    visibility: visible !important;
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
@@ -194,10 +198,32 @@ body {
     transform: none !important;
   }
 
-  /* Only make the print target element visible */
+  /* Force display and visibility on #print-target and all of its contents */
   #print-target,
   #print-target * {
-    visibility: visible;
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* Restore granular internal CSS grid/flex layout structures within #print-target */
+  #print-target .flex,
+  #print-target [class*="flex"] {
+    display: flex !important;
+  }
+
+  #print-target .grid,
+  #print-target .detail-grid {
+    display: grid !important;
+  }
+
+  #print-target .academic-layout .block {
+    display: flex !important;
+  }
+
+  #print-target .simple-list,
+  #print-target .full-width-text {
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   #print-target {
@@ -258,9 +284,24 @@ body {
     display: table-cell;
   }
 
+  /* Granular Pagination Rules */
   .section {
+    break-inside: auto !important; /* Let sections flow and break across pages naturally */
+    page-break-inside: auto !important;
+    margin-bottom: 6mm !important; /* Clean, compact, professional print spacing */
+  }
+
+  .section h2 {
+    break-after: avoid-page !important; /* Never leave a section title orphaned at the bottom of a page */
+    page-break-after: avoid !important;
+  }
+
+  /* Never split a single card, degree block, detail row, or paragraph across pages */
+  .detail-grid > div,
+  .simple-list > div,
+  .academic-layout .block,
+  .full-width-text > p {
     break-inside: avoid !important;
-    page-break-inside: avoid !important; /* Prevent single sections or detail cards from being split in half */
-    margin-bottom: 8mm !important;
+    page-break-inside: avoid !important;
   }
 }
