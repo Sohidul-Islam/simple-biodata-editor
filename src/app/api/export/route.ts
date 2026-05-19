@@ -104,7 +104,7 @@ export async function GET(req: NextRequest) {
     // Return the PDF buffer directly as an attachment response
     const filename = `${biodata.name.replace(/\s+/g, '_')}_biodata.pdf`;
     
-    return new Response(pdfBuffer as any, {
+    return new Response(pdfBuffer as BodyInit, {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
@@ -112,11 +112,11 @@ export async function GET(req: NextRequest) {
         'Content-Length': pdfBuffer.length.toString(),
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('[Export API] Failed to export PDF:', error);
     return NextResponse.json({ 
       success: false, 
-      error: error.message || 'Internal Server Error during PDF generation' 
+      error: error instanceof Error ? error.message : 'Internal Server Error during PDF generation' 
     }, { status: 500 });
   }
 }

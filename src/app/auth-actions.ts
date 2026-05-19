@@ -27,7 +27,13 @@ const resetPasswordSchema = z.object({
   password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
-export async function registerUser(prevState: any, formData: FormData) {
+interface ActionState {
+  success: boolean;
+  error?: string;
+  message?: string;
+}
+
+export async function registerUser(prevState: ActionState | null, formData: FormData) {
   try {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
@@ -69,13 +75,13 @@ export async function registerUser(prevState: any, formData: FormData) {
     });
 
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Registration error:', error);
-    return { success: false, error: error.message || 'Registration failed' };
+    return { success: false, error: error instanceof Error ? error.message : 'Registration failed' };
   }
 }
 
-export async function loginUser(prevState: any, formData: FormData) {
+export async function loginUser(prevState: ActionState | null, formData: FormData) {
   try {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
@@ -112,13 +118,13 @@ export async function loginUser(prevState: any, formData: FormData) {
     });
 
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Login error:', error);
-    return { success: false, error: error.message || 'Login failed' };
+    return { success: false, error: error instanceof Error ? error.message : 'Login failed' };
   }
 }
 
-export async function forgotPassword(prevState: any, formData: FormData) {
+export async function forgotPassword(prevState: ActionState | null, formData: FormData) {
   try {
     const email = formData.get('email') as string;
 
@@ -151,13 +157,13 @@ export async function forgotPassword(prevState: any, formData: FormData) {
 
     // To prevent user enumeration, always return success message
     return { success: true, message: 'If the email exists, a password reset link has been generated.' };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Forgot password error:', error);
-    return { success: false, error: error.message || 'Failed to request password reset' };
+    return { success: false, error: error instanceof Error ? error.message : 'Failed to request password reset' };
   }
 }
 
-export async function resetPassword(prevState: any, formData: FormData) {
+export async function resetPassword(prevState: ActionState | null, formData: FormData) {
   try {
     const token = formData.get('token') as string;
     const password = formData.get('password') as string;
@@ -190,8 +196,8 @@ export async function resetPassword(prevState: any, formData: FormData) {
       .where(eq(users.id, user.id));
 
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Reset password error:', error);
-    return { success: false, error: error.message || 'Failed to reset password' };
+    return { success: false, error: error instanceof Error ? error.message : 'Failed to reset password' };
   }
 }

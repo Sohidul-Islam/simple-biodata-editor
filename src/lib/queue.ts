@@ -89,7 +89,7 @@ export const parserWorker = globalForQueue.parserWorker ?? new Worker('biodata-p
         biodataId: newId,
         name: newBiodata.name,
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error(`[Worker] Job ${job.id} failed:`, error);
       throw error;
     }

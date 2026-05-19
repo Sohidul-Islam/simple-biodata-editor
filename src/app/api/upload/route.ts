@@ -54,11 +54,11 @@ export async function POST(req: NextRequest) {
       jobId: job.id,
       fileName: file.name,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('[Upload API] Error occurred during upload:', error);
     return NextResponse.json({ 
       success: false, 
-      error: error.message || 'Internal Server Error' 
+      error: error instanceof Error ? error.message : 'Internal Server Error' 
     }, { status: 500 });
   }
 }

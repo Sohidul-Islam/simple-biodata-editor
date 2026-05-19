@@ -48,11 +48,11 @@ export async function GET(
       status: state, // 'active', 'waiting', 'delayed', etc.
       progress: typeof progress === 'number' ? progress : 0,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('[Jobs API] Error fetching job status:', error);
     return NextResponse.json({ 
       success: false, 
-      error: error.message || 'Internal Server Error' 
+      error: error instanceof Error ? error.message : 'Internal Server Error' 
     }, { status: 500 });
   }
 }

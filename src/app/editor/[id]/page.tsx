@@ -24,8 +24,8 @@ export default async function EditorPage({ params }: EditorPageProps) {
 
   try {
     biodata = await getBiodata(id);
-  } catch (error: any) {
-    dbError = error.message || 'Database error occurred';
+  } catch (error) {
+    dbError = error instanceof Error ? error.message : 'Database error occurred';
   }
 
   if (dbError) {

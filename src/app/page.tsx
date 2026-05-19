@@ -1,4 +1,4 @@
-import { getBiodatas, createDefaultBiodata } from './actions';
+import { getBiodatas, createDefaultBiodata, BiodataData } from './actions';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import CreatorPanel from './components/CreatorPanel';
@@ -12,13 +12,13 @@ export default async function DashboardPage() {
     redirect('/login');
   }
 
-  let biodataList: any[] = [];
-  let dbError = null;
+  let biodataList: BiodataData[] = [];
+  let dbError: string | null = null;
 
   try {
     biodataList = await getBiodatas();
-  } catch (error: any) {
-    dbError = error.message || 'Failed to connect to MySQL';
+  } catch (error) {
+    dbError = error instanceof Error ? error.message : 'Failed to connect to MySQL';
   }
 
   async function handleCreateAction(name: string) {
@@ -84,12 +84,12 @@ export default async function DashboardPage() {
           </div>
 
           <div className="flex justify-end pt-2">
-            <a 
+            <Link 
               href="/" 
               className="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 active:bg-slate-850 rounded-lg text-sm font-medium transition"
             >
               Retry Connection
-            </a>
+            </Link>
           </div>
         </div>
       </main>
@@ -165,7 +165,7 @@ export default async function DashboardPage() {
               <div className="space-y-1.5 max-w-sm mx-auto">
                 <h3 className="font-bold text-slate-700">No Biodatas Found</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  You haven't generated any biodatas yet. Enter a name on the left panel to initialize your very first dynamic full-stack wedding biodata!
+                  You haven&apos;t generated any biodatas yet. Enter a name on the left panel to initialize your very first dynamic full-stack wedding biodata!
                 </p>
               </div>
             </div>
