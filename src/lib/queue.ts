@@ -48,7 +48,7 @@ if (process.env.NODE_ENV !== 'production') {
 // 2. Define Worker process logic
 export const parserWorker = globalForQueue.parserWorker ?? new Worker('biodata-parser-queue', 
   async (job: Job) => {
-    const { filePath, name } = job.data;
+    const { filePath, name, userId } = job.data;
     console.log(`[Worker] Starting Job ${job.id} for file: ${filePath}`);
 
     try {
@@ -69,6 +69,7 @@ export const parserWorker = globalForQueue.parserWorker ?? new Worker('biodata-p
       const newId = crypto.randomUUID();
       const newBiodata = {
         id: newId,
+        userId: userId || null,
         name: structuredBiodata.name || name || 'MD Mubtashim Fuad Fahim',
         email: structuredBiodata.email || null,
         phone: structuredBiodata.phone || null,

@@ -2,10 +2,16 @@ import { getBiodatas, createDefaultBiodata } from './actions';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import CreatorPanel from './components/CreatorPanel';
+import { getSessionUser, logoutUser } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {
+  const user = await getSessionUser();
+  if (!user) {
+    redirect('/login');
+  }
+
   let biodataList: any[] = [];
   let dbError = null;
 
@@ -19,6 +25,12 @@ export default async function DashboardPage() {
     'use server';
     const id = await createDefaultBiodata(name);
     redirect(`/editor/${id}`);
+  }
+
+  async function handleLogout() {
+    'use server';
+    await logoutUser();
+    redirect('/login');
   }
 
   // Database Connection Error view
@@ -99,8 +111,19 @@ export default async function DashboardPage() {
             <p className="text-xs text-slate-500">Premium Full-Stack Biodata Solution</p>
           </div>
         </div>
-        <div className="text-xs text-slate-400 font-medium font-mono bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
-          Status: Connected to MySQL
+        <div className="flex items-center gap-4">
+          <div className="text-xs text-slate-600 font-medium font-sans bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>{user.email}</span>
+          </div>
+          <form action={handleLogout}>
+            <button
+              type="submit"
+              className="text-xs font-semibold text-slate-600 hover:text-rose-600 border border-slate-200 hover:border-rose-200 bg-white hover:bg-rose-50 px-3.5 py-1.5 rounded-full transition shadow-sm cursor-pointer"
+            >
+              Sign Out
+            </button>
+          </form>
         </div>
       </header>
 

@@ -3,11 +3,17 @@ import { parserQueue } from '@/lib/queue';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import { getSessionUser } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {
+    const user = await getSessionUser();
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const formData = await req.formData();
     const file = formData.get('file') as File;
     const name = formData.get('name') as string || 'MD Mubtashim Fuad Fahim';
@@ -38,6 +44,7 @@ export async function POST(req: NextRequest) {
     const job = await parserQueue.add('parse-resume', {
       filePath,
       name,
+      userId: user.id,
     });
 
     console.log(`[Upload API] Added parsing job to queue. Job ID: ${job.id}`);

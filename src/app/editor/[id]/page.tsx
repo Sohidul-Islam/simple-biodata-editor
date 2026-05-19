@@ -2,6 +2,7 @@ import { getBiodata } from '@/app/actions';
 import EditorClient from '@/app/editor/[id]/EditorClient';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { getSessionUser } from '@/lib/auth';
 
 interface EditorPageProps {
   params: Promise<{
@@ -13,6 +14,10 @@ export const dynamic = 'force-dynamic';
 
 export default async function EditorPage({ params }: EditorPageProps) {
   const { id } = await params;
+  const user = await getSessionUser();
+  if (!user) {
+    redirect('/login');
+  }
   
   let biodata = null;
   let dbError = null;
@@ -49,7 +54,7 @@ export default async function EditorPage({ params }: EditorPageProps) {
     );
   }
 
-  if (!biodata) {
+  if (!biodata || biodata.userId !== user.id) {
     redirect('/');
   }
 
