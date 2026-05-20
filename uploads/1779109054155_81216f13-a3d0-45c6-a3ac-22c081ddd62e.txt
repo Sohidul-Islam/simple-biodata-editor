@@ -1,0 +1,137 @@
+MD. RAHIM HASAN
+Phone: +8801712345678
+Email: rahimhasan.dev@gmail.com
+Address: Mirpur, Dhaka, Bangladesh
+
+--------------------------------------------------
+
+CAREER OBJECTIVE
+
+I want to build my career in software engineering and web application development.
+I have experience working with frontend and backend technologies.
+I am passionate about scalable systems and modern UI development.
+
+--------------------------------------------------
+
+PERSONAL INFORMATION
+
+Father Name: Abdul Karim
+Mother Name: Rokeya Begum
+Date of Birth: 12 March 1998
+Nationality: Bangladeshi
+Religion: Islam
+Marital Status: Single
+
+--------------------------------------------------
+
+EDUCATION
+
+Bachelor of Science in Computer Science and Engineering
+Daffodil International University
+Passing Year: 2021
+CGPA: 3.45 out of 4.00
+
+Higher Secondary Certificate (HSC)
+Govt. Bangla College
+Passing Year: 2016
+Group: Science
+GPA: 4.75
+
+Secondary School Certificate (SSC)
+Mirpur Bangla High School
+Passing Year: 2014
+Group: Science
+GPA: 5.00
+
+--------------------------------------------------
+
+WORK EXPERIENCE
+
+Frontend Developer
+TechNova Solutions
+January 2022 - Present
+
+Responsibilities:
+- Developed responsive web applications using React.js and Next.js
+- Worked with TypeScript and REST APIs
+- Built reusable UI components
+- Optimized application performance
+- Collaborated with backend developers and designers
+
+Junior Web Developer
+SoftEdge IT
+March 2021 - December 2021
+
+Responsibilities:
+- Worked with HTML, CSS, JavaScript
+- Maintained company websites
+- Assisted senior developers
+- Fixed UI bugs and responsive issues
+
+--------------------------------------------------
+
+TECHNICAL SKILLS
+
+Frontend:
+- React.js
+- Next.js
+- TypeScript
+- TailwindCSS
+- Redux
+
+Backend:
+- Node.js
+- Express.js
+- PostgreSQL
+- MongoDB
+
+Tools:
+- Git
+- Docker
+- Figma
+- Postman
+
+--------------------------------------------------
+
+PROJECTS
+
+1. AI Resume Builder
+Built an AI-powered resume builder using Next.js and Ollama.
+Features included AI formatting, PDF export, and dynamic themes.
+
+2. E-Commerce Dashboard
+Developed a scalable admin dashboard with analytics and reporting.
+
+3. Pet Management System
+Created a pet registration and reporting platform using React and Node.js.
+
+--------------------------------------------------
+
+LANGUAGES
+
+- Bengali (Native)
+- English (Professional)
+
+--------------------------------------------------
+
+HOBBIES
+
+- Reading technology blogs
+- Traveling
+- Photography
+- Learning AI technologies
+
+--------------------------------------------------
+
+REFERENCES
+
+MD. Saiful Islam
+Senior Software Engineer
+TechNova Solutions
+Phone: +8801811122233
+
+--------------------------------------------------
+
+DECLARATION
+
+I hereby declare that all the information mentioned above is true and correct to the best of my knowledge.

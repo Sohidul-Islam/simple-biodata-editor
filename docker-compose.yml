@@ -1,0 +1,70 @@
+services:
+  # Next.js Full Stack Web Application
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bioeditor-web
+    ports:
+      - '3001:3000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - DATABASE_URL=mysql://root:rootpassword@db:3306/simple_biodata_editor
+      - NODE_ENV=development
+      - REDIS_HOST=redis
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      - db
+    restart: always
+
+  # MySQL Database Server
+  db:
+    image: mysql:latest
+    container_name: bioeditor-db
+    ports:
+      - '3307:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=simple_biodata_editor
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+  # phpMyAdmin Database Control Panel
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: bioeditor-phpmyadmin
+    ports:
+      - '8085:80'
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=rootpassword
+    depends_on:
+      - db
+    restart: always
+
+  # Redis Cache & Message Broker for Queue System (BullMQ)
+  redis:
+    image: redis:alpine
+    container_name: bioeditor-redis
+    ports:
+      - '6379:6379'
+    restart: always
+
+  # Ollama Local LLM Server
+  ollama:
+    image: ollama/ollama:latest
+    container_name: bioeditor-ollama
+    ports:
+      - '11434:11434'
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: always
+
+volumes:
+  mysql_data:
+  ollama_data:
