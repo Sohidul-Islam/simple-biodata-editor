@@ -26,7 +26,7 @@ export default function ShareClient({ biodata }: ShareClientProps) {
           </Link>
           <div>
             <h1 className="text-xs font-bold text-slate-800 tracking-wide">
-              {biodata.name}'s Biodata
+              {biodata.name}&apos;s Biodata
             </h1>
             <p className="text-[9px] text-slate-400 font-semibold tracking-wider uppercase">Public Verified Link</p>
           </div>

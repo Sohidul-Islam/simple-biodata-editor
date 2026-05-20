@@ -1,5 +1,4 @@
 import { getBiodata } from '@/app/actions';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ShareClient from '@/app/share/[id]/ShareClient';
 
@@ -19,8 +18,8 @@ export default async function SharePage({ params }: SharePageProps) {
 
   try {
     biodata = await getBiodata(id);
-  } catch (error: any) {
-    dbError = error.message || 'Database error occurred';
+  } catch (error) {
+    dbError = error instanceof Error ? error.message : 'Database error occurred';
   }
 
   if (dbError) {

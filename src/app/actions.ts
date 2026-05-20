@@ -2,9 +2,10 @@
 
 import { db } from '@/db';
 import { biodatas } from '@/db/schema';
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, and } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import crypto from 'crypto';
+import { getSessionUser } from '@/lib/auth';
 
 export interface SectionItem {
   id: string;
@@ -25,6 +26,7 @@ export interface BiodataSection {
 
 export interface BiodataData {
   id: string;
+  userId: string | null;
   name: string;
   email: string | null;
   phone: string | null;
@@ -109,7 +111,13 @@ const DEFAULT_SECTIONS: BiodataSection[] = [
 
 export async function getBiodatas() {
   try {
-    const data = await db.select().from(biodatas).orderBy(desc(biodatas.createdAt));
+    const user = await getSessionUser();
+    if (!user) throw new Error('Unauthorized');
+    const data = await db
+      .select()
+      .from(biodatas)
+      .where(eq(biodatas.userId, user.id))
+      .orderBy(desc(biodatas.createdAt));
     return data as BiodataData[];
   } catch (error) {
     console.error('Error fetching biodatas:', error);
@@ -119,6 +127,8 @@ export async function getBiodatas() {
 
 export async function getBiodata(id: string) {
   try {
+    // We allow fetching a biodata publicly (without session check) because of public sharing page /share/[id]
+    // And Puppeteer needs to load it for PDF export.
     const data = await db.select().from(biodatas).where(eq(biodatas.id, id)).limit(1);
     if (data.length === 0) return null;
     return data[0] as BiodataData;
@@ -130,9 +140,13 @@ export async function getBiodata(id: string) {
 
 export async function createDefaultBiodata(name: string = 'MD Mubtashim Fuad Fahim') {
   try {
+    const user = await getSessionUser();
+    if (!user) throw new Error('Unauthorized');
+
     const id = crypto.randomUUID();
     const newBiodata = {
       id,
+      userId: user.id,
       name,
       email: 'mdmubtashimfuadfahim@gmail.com',
       phone: '+88 01879386301',
@@ -154,10 +168,29 @@ export async function createDefaultBiodata(name: string = 'MD Mubtashim Fuad Fah
 
 export async function saveBiodata(id: string, data: Partial<BiodataData>) {
   try {
-    // Omit primary key and database-managed timestamp fields from the update payload
-    const { id: _, createdAt, updatedAt, ...updatePayload } = data as any;
+    const user = await getSessionUser();
+    if (!user) throw new Error('Unauthorized');
 
-    await db.update(biodatas).set(updatePayload).where(eq(biodatas.id, id));
+    const [existing] = await db
+      .select()
+      .from(biodatas)
+      .where(and(eq(biodatas.id, id), eq(biodatas.userId, user.id)))
+      .limit(1);
+
+    if (!existing) {
+      throw new Error('Unauthorized access or biodata not found');
+    }
+
+    // Omit primary key and database-managed timestamp fields from the update payload
+    const updatePayload = { ...data };
+    delete updatePayload.id;
+    delete updatePayload.userId;
+    
+    const cleanPayload = updatePayload as Record<string, unknown>;
+    delete cleanPayload.createdAt;
+    delete cleanPayload.updatedAt;
+
+    await db.update(biodatas).set(cleanPayload as Partial<typeof biodatas.$inferInsert>).where(eq(biodatas.id, id));
     revalidatePath(`/editor/${id}`);
     revalidatePath(`/share/${id}`);
     revalidatePath('/');
@@ -170,6 +203,19 @@ export async function saveBiodata(id: string, data: Partial<BiodataData>) {
 
 export async function deleteBiodata(id: string) {
   try {
+    const user = await getSessionUser();
+    if (!user) throw new Error('Unauthorized');
+
+    const [existing] = await db
+      .select()
+      .from(biodatas)
+      .where(and(eq(biodatas.id, id), eq(biodatas.userId, user.id)))
+      .limit(1);
+
+    if (!existing) {
+      throw new Error('Unauthorized access or biodata not found');
+    }
+
     await db.delete(biodatas).where(eq(biodatas.id, id));
     revalidatePath('/');
     return { success: true };

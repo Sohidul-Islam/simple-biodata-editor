@@ -10,7 +10,7 @@ interface CreatorPanelProps {
 export default function CreatorPanel({ handleCreateAction }: CreatorPanelProps) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'default' | 'ai' | 'prompt'>('default');
-  const [name, setName] = useState('MD Mubtashim Fuad Fahim');
+  const [name, setName] = useState('');
   const [isCreatingDefault, setIsCreatingDefault] = useState(false);
   const [promptText, setPromptText] = useState('');
   
@@ -244,13 +244,13 @@ export default function CreatorPanel({ handleCreateAction }: CreatorPanelProps) 
             Start building a stunning wedding biodata from a blank template. It initializes a beautiful default pre-filled layout instantly!
           </p>
           <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-600 uppercase tracking-wider block">Groom/Bride Full Name</label>
+            <label className="text-xs font-bold text-slate-600 uppercase tracking-wider block">Title</label>
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. MD Mubtashim Fuad Fahim"
+              placeholder="e.g. Sohidul Islam."
               className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm bg-slate-50 transition"
             />
           </div>
